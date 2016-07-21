@@ -11,7 +11,7 @@ function solve() {
     return function (selector) {
         var element,
             setOfElements,
-            i, j,
+            i,
             topmostContentElement;
 
         if (typeof selector === 'string') {
@@ -25,7 +25,7 @@ function solve() {
             throw Error('Not valid DOM element or selector is provided!');
         }
 
-        setOfElements = document.querySelectorAll('.button, .content');
+        setOfElements = element.querySelectorAll('.button, .content');
 
         for (i = 0; i < setOfElements.length; i += 1) {
             if (setOfElements[i].className === 'button') {
@@ -35,52 +35,27 @@ function solve() {
 
         element.addEventListener('click', function (ev) {
             if (ev.target.className === 'button') {
-                topmostContentElement = ev.nextElementSibling;
+                topmostContentElement = ev.target.nextElementSibling;
                 while (topmostContentElement) {
                     if (topmostContentElement.className === 'content') {
                         break;
                     }
                     topmostContentElement = topmostContentElement.nextElementSibling;
                 }
-                if (topmostContentElement.className === content) {
-                    if (topmostContentElement.getAttribute('display') === 'none') {
-                        setOfElements[i].innerHTML = 'hide';
-                        topmostContentElement.setAttribute('display', '');
+                if (!topmostContentElement) {
+                    return;
+                }
+                if (topmostContentElement.className === 'content') {
+                    if (topmostContentElement.style.display === 'none') {
+                        ev.target.innerHTML = 'hide';
+                        topmostContentElement.style.display = '';
                     } else {
-                        setOfElements[i].innerHTML = 'show';
-                        topmostContentElement.setAttribute('display', 'none');
+                        ev.target.innerHTML = 'show';
+                        topmostContentElement.style.display = 'none';
                     }
                 }
             }
         }, false);
-
-        /*for (i = 0; i < setOfElements.length; i += 1) {
-            if (setOfElements[i].className === 'content') {
-                continue;
-            }
-            topmostContentElement = null;
-            for (j = i + 1; j < setOfElements.length; j += 1) {
-                if (setOfElements[j].className === 'button') {
-                    topmostContentElement = null;
-                    break;
-                } else if (setOfElements[j].className === 'content') {
-                    topmostContentElement = setOfElements[j];
-                    break;
-                }
-            }
-
-            if (topmostContentElement) {
-                setOfElements[i].addEventListener('click', function () {
-                    if (topmostContentElement.getAttribute('display') === 'none') {
-                        setOfElements[i].innerHTML = 'hide';
-                        topmostContentElement.setAttribute('display', '');
-                    } else {
-                        setOfElements[i].innerHTML = 'show';
-                        topmostContentElement.setAttribute('display', 'none');
-                    }
-                }, false);
-            }
-        }*/
     };
 }
 
