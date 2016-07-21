@@ -28,21 +28,42 @@ function solve() {
         setOfElements = document.querySelectorAll('.button, .content');
 
         for (i = 0; i < setOfElements.length; i += 1) {
-            if (setOfElements[i].classList.contains('button')) {
+            if (setOfElements[i].className === 'button') {
                 setOfElements[i].innerHTML = 'hide';
             }
         }
 
-        for (i = 0; i < setOfElements.length; i += 1) {
-            if (setOfElements[i].classList.contains('content')) {
+        element.addEventListener('click', function (ev) {
+            if (ev.target.className === 'button') {
+                topmostContentElement = ev.nextElementSibling;
+                while (topmostContentElement) {
+                    if (topmostContentElement.className === 'content') {
+                        break;
+                    }
+                    topmostContentElement = topmostContentElement.nextElementSibling;
+                }
+                if (topmostContentElement.className === content) {
+                    if (topmostContentElement.getAttribute('display') === 'none') {
+                        setOfElements[i].innerHTML = 'hide';
+                        topmostContentElement.setAttribute('display', '');
+                    } else {
+                        setOfElements[i].innerHTML = 'show';
+                        topmostContentElement.setAttribute('display', 'none');
+                    }
+                }
+            }
+        }, false);
+
+        /*for (i = 0; i < setOfElements.length; i += 1) {
+            if (setOfElements[i].className === 'content') {
                 continue;
             }
             topmostContentElement = null;
             for (j = i + 1; j < setOfElements.length; j += 1) {
-                if (setOfElements[j].classList.contains('button')) {
+                if (setOfElements[j].className === 'button') {
                     topmostContentElement = null;
                     break;
-                } else if (setOfElements[j].classList.contains('content')) {
+                } else if (setOfElements[j].className === 'content') {
                     topmostContentElement = setOfElements[j];
                     break;
                 }
@@ -50,16 +71,16 @@ function solve() {
 
             if (topmostContentElement) {
                 setOfElements[i].addEventListener('click', function () {
-                    if (topmostContentElement.attr('display') === '') {
-                        setOfElements[i].innerHTML = 'show';
-                        topmostContentElement.attr('display', 'none');
-                    } else if (topmostContentElement.attr('display') === 'none') {
+                    if (topmostContentElement.getAttribute('display') === 'none') {
                         setOfElements[i].innerHTML = 'hide';
-                        topmostContentElement.attr('display', '');
+                        topmostContentElement.setAttribute('display', '');
+                    } else {
+                        setOfElements[i].innerHTML = 'show';
+                        topmostContentElement.setAttribute('display', 'none');
                     }
-                });
+                }, false);
             }
-        }
+        }*/
     };
 }
 
