@@ -20,8 +20,41 @@ Create a function that takes a selector and COUNT, then generates inside a UL wi
 
 function solve() {
     return function (selector, count) {
+        var $rootElement = $(selector),
+            $ulElement;
 
+        if (selector !== selector + '') {
+            throw Error('The selector must be a string!');
+        }
+
+        if ($rootElement.length < 1) {
+            return;
+        }
+
+        if (arguments.length < 2) {
+            throw Error('There is no enought parameters given!');
+        }
+
+        if (!!(+count) === false) {
+            throw Error('The count parameter is not a number!');
+        }
+
+        if (+count < 0) {
+            throw Error('Count parameter can not be less than 0!');
+        }
+
+        $ulElement = $('<ul>');
+        $ulElement.addClass('items-list');
+        for (var i = 0; i < +count; i += 1) {
+            var $liElement = $('<li>');
+
+            $liElement.addClass('list-item');
+            $liElement.text('List item #' + i);
+            $liElement.appendTo($ulElement);
+        }
+
+        $ulElement.appendTo($rootElement);
     };
-};
+}
 
 module.exports = solve;
