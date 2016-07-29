@@ -15,7 +15,7 @@ function solve() {
         for (var i = 0; i < $options.length; i += 1) {
             $('<div />')
                 .addClass('dropdown-item')
-                .attr('data-value', 'value-' + (i + 1))
+                .attr('data-value', /*'value-' +*/ (i + 1) + '')
                 .attr('data-index', i)
                 .text('Option ' + (i + 1))
                 .appendTo($container);
@@ -47,6 +47,8 @@ function solve() {
 
             $container.css('display', 'none');
         });
+
+        return this;
     };
 }
 
