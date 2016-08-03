@@ -5,6 +5,9 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="wrapper">
+
+    </div>
     <script src="../node_modules/handlebars/dist/handlebars.js" charset="utf-8"></script>
     <script src="task-1.js" charset="utf-8"></script>
     <script type="text/x-handlebars-template" id="template-text">
@@ -50,13 +53,11 @@
                         col3: 'iOS'
                       }]
           },
-        result = template(data);
+          result = template(data),
+          wrapper = document.getElementById("wrapper");
 
-        var element = document.getElementById('wrapper').append(result);
+          wrapper.innerHTML += result;
 
     </script>
-    <div id="wrapper">
-
-    </div>
 </body>
 </html>
