@@ -13,11 +13,7 @@ $.fn.colorpicker = function () {
             'box-shadow': '3px 3px 3px #dadada'
         })
         .on('click', function () {
-            if ($picker.css('display') === 'none') {
-                $picker.css('display', '');
-            } else {
-                $picker.css('display', 'none');
-            }
+            $picker.css('display', '');
         }),
 
         $picker = $('<div />')
@@ -39,6 +35,9 @@ $.fn.colorpicker = function () {
             'margin-left': '10px',
             'margin-top': '8px',
             'display': 'inline-block'
+        })
+        .on('click', function () {
+            $picker.css('display', 'none');
         })
         .appendTo($picker),
 
