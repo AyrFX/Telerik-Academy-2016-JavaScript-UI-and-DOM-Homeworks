@@ -41,18 +41,30 @@ $.fn.colorpicker = function () {
         })
         .appendTo($picker),
 
-        $palette = $('<div/>')
+        $paletteImage = $('img')
+        .attr('src', '"imgs/color-picker.png"')
+        .css({
+            'width': '256px',
+            'height': '256px'
+        }),
+
+        $palette = $('<canvas/>')
         .css({
             'width': '256px',
             'height': '256px',
-            'background-image': 'url("imgs/color-picker.png")',
-            'background-size': '256px',
+            /*'background-image': 'url("imgs/color-picker.png")',
+            'background-size': '256px',*/
             'border-radius': '50px',
             'position': 'absolute',
             'margin-left': '15px',
             'margin-top': '40px',
             'display': 'inline-block',
             'cursor': 'url("imgs/cursor.png") 0 28, pointer'
+        })
+        .on('click', function () {
+            $selectedColor.css({
+                'background-color': ''
+            });
         })
         .appendTo($picker),
 
@@ -92,8 +104,11 @@ $.fn.colorpicker = function () {
             'display': 'block',
             'background-color': 'black'
         })
-        .appendTo($valuesContainer);
+        .appendTo($valuesContainer),
+        imageContext = $palette.get().getContext('2d');
 
     $this.append($button)
         .append($picker);
+
+    imageContext.drawImage($paletteImage.get(), 0, 0);
 }
